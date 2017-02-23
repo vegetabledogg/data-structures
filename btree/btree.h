@@ -31,7 +31,7 @@ private:
     void shift(int key[], bool direction, int begin, int end);
     void shift(BNode* child[], bool direction, int begin, int end);
     int getIndex(BNode *t, int val);
-    void spilit(BNode *t, int index);
+    void split(BNode *t, int index);
     void insertFix(BNode *t, int val);
     void merge(BNode *t, int lhs);
     void deleteFix(BNode *t, int val);

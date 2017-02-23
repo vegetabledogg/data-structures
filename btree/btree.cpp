@@ -45,7 +45,7 @@ int BTree::getIndex(BNode *t, int val){
     return i;
 }
 
-void BTree::spilit(BNode *t, int index){
+void BTree::split(BNode *t, int index){
     int i;
     BNode *subNode = t->child[index];
     BNode *newNode = new BNode(MinDegree - 1, subNode->isLeaf);
@@ -74,7 +74,7 @@ void BTree::insertFix(BNode *t, int val){
     }
     else{
         if(t->child[index]->keyNum == MinDegree * 2 - 1){
-            spilit(t, index);
+            split(t, index);
             if(val > t->key[index]){
                 index += 1;
             }

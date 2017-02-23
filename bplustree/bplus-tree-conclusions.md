@@ -103,7 +103,7 @@ void printTree(PtrBplusNode root){
 B+树的插入只需要在B树插入的基础上处理叶节点的特殊情况。所以差异的部分主要是分裂节点的函数：
 
 ```C
-void spilit(PtrBplusNode node, int childIndex){
+void split(PtrBplusNode node, int childIndex){
     int i;
     PtrBplusNode newNode, subNode = node->child[childIndex];
     
@@ -188,7 +188,7 @@ void insertNonFull(PtrBplusNode node, ElementType val){
     }
     else{
         if(MinDegree * 2 - 1 == node->child[index]->keyNum){
-            spilit(node, index);
+            split(node, index);
             if(node->key[index] < val){//Caution
                 index++;
             }
@@ -197,7 +197,7 @@ void insertNonFull(PtrBplusNode node, ElementType val){
     }
 }
 
-void spilit(PtrBplusNode node, int childIndex){
+void split(PtrBplusNode node, int childIndex){
     int i;
     PtrBplusNode newNode, subNode = node->child[childIndex];
     

@@ -34,7 +34,7 @@ private:
     void shift(int key[], bool direction, int begin, int end);
     void shift(BplusNode* child[], bool direction, int begin, int end);
 
-    void spilit(BplusNode *t, int spilitIndex);
+    void split(BplusNode *t, int splitIndex);
     void merge(BplusNode *t, int lhs, int rhs);
     int search(BplusNode *t, int val);
 

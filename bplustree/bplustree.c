@@ -31,7 +31,7 @@ struct BplusTree{
 };
 
 PtrBplusNode allocateNode(BoolType IsLeaf);
-void spilit(PtrBplusNode SpilitNodeP, int ChildIndex);
+void split(PtrBplusNode splitNodeP, int ChildIndex);
 void insertNonFull(PtrBplusNode CurrentNode, ElementType Val);
 void insert(PtrBplusTree t, ElementType val);
 void merge(PtrBplusTree T, PtrBplusNode CurrentNode, int LeftIndex, int RightIndex);
@@ -111,7 +111,7 @@ void insertNonFull(PtrBplusNode node, ElementType val){
     }
     else{
         if(MinDegree * 2 - 1 == node->child[index]->keyNum){
-            spilit(node, index);
+            split(node, index);
             if(node->key[index] < val){
                 index++;
             }
@@ -120,7 +120,7 @@ void insertNonFull(PtrBplusNode node, ElementType val){
     }
 }
 
-void spilit(PtrBplusNode node, int childIndex){
+void split(PtrBplusNode node, int childIndex){
     int i;
     PtrBplusNode newNode, subNode = node->child[childIndex];
     

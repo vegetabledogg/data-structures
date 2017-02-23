@@ -37,42 +37,42 @@ void BplusTree::shift(BplusNode *child[], bool direction, int begin, int end){
     }
 }
 
-void BplusTree::spilit(BplusNode *t, int spilitIndex){
+void BplusTree::split(BplusNode *t, int splitIndex){
     int i;
-    BplusNode *spilitNode = t->child[spilitIndex];
+    BplusNode *splitNode = t->child[splitIndex];
 
-    if(true == spilitNode->isLeaf){
+    if(true == splitNode->isLeaf){
         BplusNode *newNode = new BplusNode(MinDegree - 1, true);
         for(i = 0; i < MinDegree - 1; i++){
-            newNode->key[i] = spilitNode->key[i + MinDegree];
+            newNode->key[i] = splitNode->key[i + MinDegree];
         }
-        newNode->next = spilitNode->next;
-        spilitNode->next = newNode;
+        newNode->next = splitNode->next;
+        splitNode->next = newNode;
 
-        shift(t->key, true, spilitIndex, t->keyNum - 1);
-        shift(t->child, true, spilitIndex + 1, t->keyNum);
-        t->key[spilitIndex] = spilitNode->key[MinDegree - 1];
-        t->child[spilitIndex + 1] = newNode;
+        shift(t->key, true, splitIndex, t->keyNum - 1);
+        shift(t->child, true, splitIndex + 1, t->keyNum);
+        t->key[splitIndex] = splitNode->key[MinDegree - 1];
+        t->child[splitIndex + 1] = newNode;
         t->keyNum += 1;
 
-        spilitNode->keyNum = MinDegree;
+        splitNode->keyNum = MinDegree;
     }
     else{
         BplusNode *newNode = new BplusNode(MinDegree - 1, false);
         for(i = 0; i < MinDegree - 1; i++){
-            newNode->key[i] = spilitNode->key[i + MinDegree];
+            newNode->key[i] = splitNode->key[i + MinDegree];
         }
         for(i = 0; i < MinDegree; i++){
-            newNode->child[i] = spilitNode->child[i + MinDegree];
+            newNode->child[i] = splitNode->child[i + MinDegree];
         }
 
-        shift(t->key, true, spilitIndex, t->keyNum - 1);
-        shift(t->child, true, spilitIndex + 1, t->keyNum);
-        t->key[spilitIndex] = spilitNode->key[MinDegree - 1];
-        t->child[spilitIndex + 1] = newNode;
+        shift(t->key, true, splitIndex, t->keyNum - 1);
+        shift(t->child, true, splitIndex + 1, t->keyNum);
+        t->key[splitIndex] = splitNode->key[MinDegree - 1];
+        t->child[splitIndex + 1] = newNode;
         t->keyNum += 1;
 
-        spilitNode->keyNum = MinDegree - 1;
+        splitNode->keyNum = MinDegree - 1;
     }
 }
 
@@ -139,7 +139,7 @@ void BplusTree::insertFix(BplusNode *t, int val){
     }
     else{
         if(t->child[index]->keyNum == MinDegree * 2 - 1){
-            spilit(t, index);
+            split(t, index);
             if(val > t->key[index]){
                 index++;
             }
